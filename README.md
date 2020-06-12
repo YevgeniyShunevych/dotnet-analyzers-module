@@ -8,8 +8,8 @@ and there is a need to keep analyzers configuration at the single place.
 Assume that [`analyzers`](analyzers) folder is a Git submodule of shared repository with analyzers configuration.
 It contains 2 files:
 
-- `General.ruleset` - provides a common set of code analysis rule sets. This is he single place to enable/disable rules globally.
-- `Build.props` - contains shared code analysis project settings `<CodeAnalysisRuleSet>` and set of `<PackageReference>` items
+- [`General.ruleset`](analyzers/General.ruleset) - provides a common set of code analysis rule sets. This is he single place to enable/disable rules globally.
+- [`Build.props`](analyzers/Build.props) - contains shared code analysis project settings `<CodeAnalysisRuleSet>` and set of `<PackageReference>` items
   to add specific analysis NuGet packages that will be added to all projects.
   Its contents:
   ```xml
