@@ -22,12 +22,20 @@ It contains 2 files:
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.9.0.19135">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
     </ItemGroup>
+
+    <Target Name="DisableAnalyzer" BeforeTargets="CoreCompile" Condition="'$(RunCodeAnalysis)' == 'false'">
+      <ItemGroup>
+        <Analyzer Remove="@(Analyzer)" />
+      </ItemGroup>
+    </Target>
   </Project>
   ```
 
@@ -47,3 +55,13 @@ That's all.
 
 If you clone and open `SampleProduct.sln` you will find 3 analysis packages in each project.
 After the solution build with code analysis several analysis warnings should be displayed.
+Code analysis warnings are also generated when using `dotnet build` command.
+
+## Disable Code Analysis
+
+For particular build cases there might be a need to disable code analysis.
+In this case pass `-p:RunCodeAnalysis=false` flag:
+
+```
+dotnet build .\SampleProduct.sln -p:RunCodeAnalysis=false
+```
